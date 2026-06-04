@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasa Solutions - Building Websites. Building Success.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        jasa: {
+                            black: '#111111',
+                            dark: '#222222',
+                            gray: '#f3f4f6',
+                            light: '#f9fafb',
+                            white: '#ffffff',
+                            accent: '#333333'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for horizontal scrolling without scrollbars */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Smooth scrolling for anchor links */
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        
+        /* Side Menu & Modal transitions */
+        #side-menu { transition: transform 0.3s ease-in-out; }
+        
+        /* 3D and Animation Effects */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-3d { transform-style: preserve-3d; }
+        .card-3d-hover { 
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease; 
+        }
+        .card-3d-hover:hover {
+            transform: translateY(-10px) scale(1.02) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 20px 20px 30px rgba(0,0,0,0.1), -10px -10px 30px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        /* Ringing Animation */
+        @keyframes ringing {
+            0% { transform: rotate(0) scale(1); }
+            10% { transform: rotate(15deg) scale(1.1); }
+            20% { transform: rotate(-10deg) scale(1.1); }
+            30% { transform: rotate(15deg) scale(1.1); }
+            40% { transform: rotate(-10deg) scale(1.1); }
+            50% { transform: rotate(0) scale(1); }
+            100% { transform: rotate(0) scale(1); }
+        }
+        .btn-ring { animation: ringing 2.5s infinite ease-in-out; transform-origin: center; }
+
+        /* Fade-in Animation on Scroll */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            visibility: hidden;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, visibility 0.8s;
+            will-change: opacity, visibility, transform;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+            visibility: visible;
+        }
+
+        /* Floating Icon Animation */
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .icon-animated { animation: floatIcon 3s ease-in-out infinite; }
+        
+        /* Subtle Bounce for Modal Icon */
+        @keyframes bounceSubtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .animate-bounce-subtle { animation: bounceSubtle 2s ease-in-out infinite; }
+        
+        /* Typing Animation - Optimized for Mobile */
+        .typewriter h2 .typing-text {
+            overflow: hidden;
+            border-right: .15em solid #222;
+            white-space: nowrap;
+            margin: 0;
+            display: inline-block;
+            animation: typing 3.5s steps(30, end), blink-caret .75s step-end infinite;
+            max-width: 100%;
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #222; } }
+        
+        /* Demo Modal transitions */
+        #demo-modal { transition: opacity 0.3s ease; }
+        .demo-content-enter { animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes modalPop {
+            0% { transform: scale(0.8) translateY(30px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        /* Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 20s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+        
+        /* FAQ Utilities */
+        .faq-answer {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .faq-answer.open {
+            max-height: 200px;
+            opacity: 1;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-icon.open {
+            transform: rotate(180deg);
+        }
+        
+        /* Back to top */
+        #back-to-top {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="bg-jasa-light text-jasa-dark font-sans flex antialiased">
+
+    <!-- ========================================== -->
+    <!-- SIDE MENU BAR -->
+    <!-- ========================================== -->
+    <aside id="side-menu" class="fixed inset-y-0 left-0 w-64 bg-jasa-black text-jasa-white transform -translate-x-full lg:translate-x-0 z-[60] flex flex-col border-r border-jasa-dark shadow-2xl">
+        <div class="h-20 flex items-center justify-between px-6 border-b border-gray-800">
+            <h2 class="text-2xl font-bold tracking-tight">JASA</h2>
+            <button id="close-menu-btn" class="lg:hidden text-gray-400 hover:text-white focus:outline-none p-2">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <nav class="flex-1 py-8 px-4 space-y-2 overflow-y-auto">
+            <a href="#hero" class="block px-4 py-3 rounded-lg hover:bg-jasa-dark transition-colors duration-200 font-medium text-gray-300 hover:text-white menu-link">Home</a>
+            <a href="#services" class="block px-4 py-3 rounded-lg hover:bg-jasa-dark transition-colors duration-200 font-medium text-gray-300 hover:text-white menu-link">Our Services</a>
+            <a href="#packages" class="block px-4 py-3 rounded-lg hover:bg-jasa-dark transition-colors duration-200 font-medium text-gray-300 hover:text-white menu-link">Packages</a>
+            <a href="#demos" class="block px-4 py-3 rounded-lg hover:bg-jasa-dark transition-colors duration-200 font-medium text-gray-300 hover:text-white menu-link">Live Demos</a>
+            <a href="#additional" class="block px-4 py-3 rounded-lg hover:bg-jasa-dark transition-colors duration-200 font-medium text-gray-300 hover:text-white menu-link">Add-ons</a>
+            <a href="#platforms" class="block px-4 py-3 rounded-lg hover:bg-jasa-dark transition-colors duration-200 font-medium text-gray-300 hover:text-white menu-link">Platforms</a>
+            <a href="#features" class="block px-4 py-3 rounded-lg hover:bg-jasa-dark transition-colors duration-200 font-medium text-gray-300 hover:text-white menu-link">Features</a>
+        </nav>
+        
+        <div class="p-6 border-t border-gray-800">
+            <button onclick="openWhatsAppModal()" class="w-full bg-white text-black font-bold py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 shadow-sm">
+                <i class="fab fa-whatsapp text-lg"></i> Contact Us
+            </button>
+        </div>
+    </aside>
+
+    <!-- Overlay for mobile menu -->
+    <div id="menu-overlay" class="fixed inset-0 bg-black/60 z-50 hidden lg:hidden backdrop-blur-sm transition-opacity opacity-0"></div>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT AREA -->
+    <!-- ========================================== -->
+    <main class="flex-1 w-full lg:ml-64 flex flex-col min-h-screen transition-all duration-300">
+        
+        <!-- FIXED HEADER -->
+        <header id="main-header" class="h-20 bg-white/95 backdrop-blur-md border-b border-gray-200 fixed top-0 right-0 left-0 lg:left-64 z-40 flex items-center justify-between px-6 md:px-12 shadow-sm transition-all duration-300">
+            <div class="flex items-center gap-4">
+                <button id="open-menu-btn" class="lg:hidden text-jasa-black focus:outline-none p-2 -ml-2 rounded-md hover:bg-gray-100">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div>
+                    <!-- EDITABLE DATA: Header Brand -->
+                    <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tighter text-jasa-black uppercase">Jasa <span class="font-light text-gray-500 hidden sm:inline">Solutions</span></h1>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3 md:gap-6">
+                <div class="hidden md:flex items-center gap-2 text-sm font-medium text-gray-600">
+                    <i class="fas fa-phone text-gray-400"></i>
+                    <!-- EDITABLE DATA: Phone Number -->
+                    <span>+91 76392 76705</span>
+                </div>
+                <button onclick="openWhatsAppModal('I want to start a project')" class="bg-jasa-black text-white px-4 md:px-6 py-2 md:py-2.5 rounded-full font-bold hover:bg-gray-800 transition-colors shadow-md text-xs md:text-sm tracking-wide flex items-center gap-2">
+                    <span class="hidden sm:inline">Get Started</span>
+                    <i class="fas fa-paper-plane sm:hidden"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT CONTAINER -->
+        <div class="flex-1 pt-20 flex flex-col overflow-x-hidden">
+            
+            <!-- ========================================== -->
+            <!-- HERO SECTION -->
+            <!-- ========================================== -->
+            <section id="hero" class="relative bg-white overflow-hidden border-b border-gray-200 fade-in-section">
+                <!-- Background Image & Pattern -->
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover opacity-[0.03]">
+                    <svg class="absolute inset-0 h-full w-full opacity-30" xmlns="http://www.w3.org/2000/svg">
+                        <defs><pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40L40 0H20L0 20M40 40V20L20 40" fill="none" stroke="currentColor" stroke-width="1"/></pattern></defs>
+                        <rect width="100%" height="100%" fill="url(#grid-pattern)"></rect>
+                    </svg>
+                </div>
+                
+                <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-24 lg:py-32 grid md:grid-cols-2 gap-12 items-center">
+                    <div class="typewriter text-center md:text-left z-20">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 border border-gray-200 text-xs md:text-sm font-bold mb-6 text-gray-600 shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            Building Websites. Building Success.
+                        </div>
+                        
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-6 text-jasa-black">
+                            We Build <br/>
+                            <span class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-gray-400 typing-text">Responsive Websites</span><br/>
+                            That Grow Your Business
+                        </h2>
+                        
+                        <div class="bg-jasa-black text-white inline-block px-4 py-2 rounded-md font-bold mb-8 uppercase tracking-wider text-xs md:text-sm shadow-lg">
+                            Modern. Fast. Secure. Scalable.
+                        </div>
+                        
+                        <ul class="space-y-3 mb-10 text-gray-600 font-medium text-sm md:text-base text-left max-w-md mx-auto md:mx-0">
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black text-lg"></i> Responsive on All Devices</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black text-lg"></i> SEO Friendly & Fast Loading</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black text-lg"></i> Modern UI/UX Design</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black text-lg"></i> Secure & Optimized Code</li>
+                        </ul>
+                        
+                        <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center md:justify-start">
+                            <button onclick="openWhatsAppModal('I want to build a responsive website')" class="bg-jasa-black text-white px-8 py-4 rounded-xl font-bold hover:bg-gray-800 transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                                Start Building <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <a href="#packages" class="bg-white text-jasa-black border-2 border-gray-200 px-8 py-4 rounded-xl font-bold hover:border-black transition-all flex items-center justify-center gap-2">
+                                View Pricing
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="relative perspective-1000 mt-10 md:mt-0 scale-[0.75] sm:scale-90 md:scale-100 origin-top mx-auto max-w-sm md:max-w-none w-full">
+                        <!-- Abstract Representation of Devices/Dashboards -->
+                        <div class="bg-gray-100 p-6 rounded-3xl border border-gray-200 shadow-2xl relative z-10 transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                            <div class="flex gap-2 mb-4">
+                                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                            </div>
+                            <div class="h-64 bg-white rounded-xl border border-gray-100 p-4 mb-4 shadow-inner flex flex-col">
+                                <div class="h-8 bg-gray-100 rounded mb-4 w-1/3"></div>
+                                <div class="flex-1 flex gap-4">
+                                    <div class="w-1/4 bg-gray-50 rounded border border-gray-100 h-full"></div>
+                                    <div class="flex-1 bg-gray-50 rounded border border-gray-100 h-full flex flex-col p-4 gap-4">
+                                        <div class="h-1/2 bg-white rounded border border-gray-100 shadow-sm"></div>
+                                        <div class="h-1/2 flex gap-4">
+                                            <div class="flex-1 bg-white rounded border border-gray-100 shadow-sm"></div>
+                                            <div class="flex-1 bg-white rounded border border-gray-100 shadow-sm"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Mobile Mockup -->
+                        <div class="absolute -bottom-10 -left-4 sm:-left-8 md:-left-12 w-32 sm:w-36 md:w-44 bg-jasa-black rounded-[2rem] p-2 shadow-2xl z-20 border-4 border-gray-800 transform -rotate-6 hover:rotate-0 transition-transform duration-500 icon-animated">
+                            <div class="bg-white h-56 sm:h-64 md:h-72 rounded-[1.5rem] p-3 flex flex-col relative overflow-hidden">
+                                <div class="w-10 h-3 bg-black rounded-b-xl absolute top-0 left-1/2 transform -translate-x-1/2"></div>
+                                <div class="h-4 md:h-6 mt-4 mb-2 bg-gray-100 rounded w-1/2"></div>
+                                <div class="h-16 md:h-24 bg-gray-100 rounded-lg mb-2 flex items-center justify-center">
+                                    <i class="fas fa-mobile-alt text-3xl text-gray-300"></i>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="h-2 md:h-3 bg-gray-100 rounded w-full"></div>
+                                    <div class="h-2 md:h-3 bg-gray-100 rounded w-5/6"></div>
+                                </div>
+                                <div class="mt-auto h-6 md:h-8 bg-black rounded-lg w-full"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Built With Badges -->
+                        <div class="absolute -top-8 right-0 bg-white p-3 md:p-4 rounded-2xl shadow-xl border border-gray-100 z-20 flex gap-3 icon-animated" style="animation-delay: 1s;">
+                            <i class="fab fa-html5 text-2xl md:text-3xl text-orange-500"></i>
+                            <i class="fab fa-css3-alt text-2xl md:text-3xl text-blue-500"></i>
+                            <i class="fab fa-js text-2xl md:text-3xl text-yellow-400"></i>
+                            <i class="fab fa-react text-2xl md:text-3xl text-cyan-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- FEATURE MARQUEE -->
+            <!-- ========================================== -->
+            <div class="bg-white border-b border-gray-200 py-4 md:py-6 overflow-hidden flex items-center">
+                <div class="flex whitespace-nowrap animate-marquee w-max items-center">
+                    <!-- First Set -->
+                    <div class="flex items-center gap-8 md:gap-16 px-4 md:px-8">
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-rocket text-black"></i> Fast Loading</span>
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-shield-alt text-black"></i> Highly Secure</span>
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-mobile-alt text-black"></i> 100% Responsive</span>
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-search text-black"></i> SEO Optimized</span>
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-palette text-black"></i> Modern Design</span>
+                    </div>
+                    <!-- Duplicate Set for infinite scroll -->
+                    <div class="flex items-center gap-8 md:gap-16 px-4 md:px-8">
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-rocket text-black"></i> Fast Loading</span>
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-shield-alt text-black"></i> Highly Secure</span>
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-mobile-alt text-black"></i> 100% Responsive</span>
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-search text-black"></i> SEO Optimized</span>
+                        <span class="text-gray-400 font-bold text-sm md:text-xl uppercase tracking-widest flex items-center gap-2 md:gap-3"><i class="fas fa-palette text-black"></i> Modern Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- OUR SERVICES -->
+            <!-- ========================================== -->
+            <section id="services" class="py-16 md:py-24 bg-jasa-light fade-in-section">
+                <div class="max-w-7xl mx-auto px-6 md:px-12 mb-10">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-2">
+                        <div>
+                            <h3 class="text-sm font-bold tracking-widest uppercase text-gray-400">What We Do</h3>
+                            <h2 class="text-3xl md:text-5xl font-black text-jasa-black mt-2">Our Services</h2>
+                            
+                            <!-- Social Proof avatars -->
+                            <div class="flex items-center gap-3 mt-6">
+                                <div class="flex -space-x-3">
+                                    <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="User">
+                                    <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop" alt="User">
+                                    <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="User">
+                                </div>
+                                <span class="text-xs font-bold text-gray-500">Trusted by 100+ businesses</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Scroll Buttons for Desktop -->
+                        <div class="hidden md:flex gap-3 shrink-0">
+                            <button class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-600 hover:bg-black hover:text-white hover:border-black transition-all" onclick="scrollContainer('services-container', -320)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-600 hover:bg-black hover:text-white hover:border-black transition-all" onclick="scrollContainer('services-container', 320)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HORIZONTAL SCROLL CONTAINER -->
+                <div class="pl-6 md:pl-12 pr-6 overflow-hidden perspective-1000 relative">
+                    <div id="services-container" class="flex gap-6 overflow-x-auto hide-scrollbar pb-8 pt-4 snap-x snap-mandatory items-stretch scroll-smooth">
+                        
+                        <!-- Service Card 1 -->
+                        <div class="w-[80vw] min-w-[280px] md:w-auto md:min-w-[340px] bg-white p-8 rounded-3xl border border-gray-100 shadow-md snap-start flex-shrink-0 flex flex-col group card-3d-hover">
+                            <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-black group-hover:text-white transition-colors icon-animated shadow-sm">
+                                <i class="fas fa-laptop-code text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-3 text-black">Website Development</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-8 flex-1">Custom, responsive & high-performance websites perfectly tailored to your business goals.</p>
+                            <button onclick="openWhatsAppModal('I need Website Development')" class="text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all mt-auto border-t border-gray-100 pt-4 text-black">
+                                Learn More <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Service Card 2 -->
+                        <div class="w-[80vw] min-w-[280px] md:w-auto md:min-w-[340px] bg-white p-8 rounded-3xl border border-gray-100 shadow-md snap-start flex-shrink-0 flex flex-col group card-3d-hover">
+                            <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-black group-hover:text-white transition-colors icon-animated" style="animation-delay: 0.2s;">
+                                <i class="fas fa-shopping-cart text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-3 text-black">E-Commerce Solutions</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-8 flex-1">Online stores with secure payment gateways, inventory management, and fast checkouts.</p>
+                            <button onclick="openWhatsAppModal('I need E-Commerce Solutions')" class="text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all mt-auto border-t border-gray-100 pt-4 text-black">
+                                Learn More <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Service Card 3 -->
+                        <div class="w-[80vw] min-w-[280px] md:w-auto md:min-w-[340px] bg-white p-8 rounded-3xl border border-gray-100 shadow-md snap-start flex-shrink-0 flex flex-col group card-3d-hover">
+                            <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-black group-hover:text-white transition-colors icon-animated" style="animation-delay: 0.4s;">
+                                <i class="fas fa-id-card text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-3 text-black">Portfolio Websites</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-8 flex-1">Showcase your work professionally with stunning personal, agency, or photography portfolios.</p>
+                            <button onclick="openWhatsAppModal('I need a Portfolio Website')" class="text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all mt-auto border-t border-gray-100 pt-4 text-black">
+                                Learn More <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Service Card 4 -->
+                        <div class="w-[80vw] min-w-[280px] md:w-auto md:min-w-[340px] bg-white p-8 rounded-3xl border border-gray-100 shadow-md snap-start flex-shrink-0 flex flex-col group card-3d-hover">
+                            <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-black group-hover:text-white transition-colors icon-animated" style="animation-delay: 0.6s;">
+                                <i class="fas fa-blog text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-3 text-black">Blogs & Content Sites</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-8 flex-1">Engaging blogs, news portals, and content-rich websites optimized for readability.</p>
+                            <button onclick="openWhatsAppModal('I need a Blog/Content Site')" class="text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all mt-auto border-t border-gray-100 pt-4 text-black">
+                                Learn More <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Service Card 5 -->
+                        <div class="w-[80vw] min-w-[280px] md:w-auto md:min-w-[340px] bg-white p-8 rounded-3xl border border-gray-100 shadow-md snap-start flex-shrink-0 flex flex-col group card-3d-hover">
+                            <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-black group-hover:text-white transition-colors icon-animated" style="animation-delay: 0.8s;">
+                                <i class="fas fa-tachometer-alt text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-3 text-black">SEO & Optimization</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-8 flex-1">Rank higher on Google and ensure your site loads lightning fast to retain visitors.</p>
+                            <button onclick="openWhatsAppModal('I need SEO & Optimization')" class="text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all mt-auto border-t border-gray-100 pt-4 text-black">
+                                Learn More <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Scroll Progress Bar -->
+                <div class="max-w-7xl mx-auto px-6 md:px-12 mt-2 flex items-center gap-4">
+                    <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden relative">
+                        <div id="services-progress" class="h-full bg-black absolute left-0 top-0 transition-all duration-150 rounded-full w-1/4"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- WEBSITE PACKAGES -->
+            <!-- ========================================== -->
+            <section id="packages" class="py-16 md:py-24 bg-white border-t border-gray-200 fade-in-section">
+                <div class="max-w-7xl mx-auto px-6 md:px-12 mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div>
+                        <h3 class="text-sm font-bold tracking-widest uppercase text-gray-400 mb-2">One-Time Development</h3>
+                        <h2 class="text-3xl md:text-5xl font-black text-black mb-4">Website Packages</h2>
+                        <p class="text-gray-500 text-sm">Clear pricing. No hidden fees. Tailored to your needs.</p>
+                    </div>
+                    <!-- Scroll Buttons -->
+                    <div class="hidden md:flex gap-3 shrink-0">
+                        <button class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-600 hover:bg-black hover:text-white transition-all" onclick="scrollContainer('packages-container', -320)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-600 hover:bg-black hover:text-white transition-all" onclick="scrollContainer('packages-container', 320)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pl-6 md:pl-12 pr-6 overflow-hidden relative perspective-1000">
+                    <div id="packages-container" class="flex gap-6 overflow-x-auto hide-scrollbar pb-8 pt-4 snap-x snap-mandatory items-stretch scroll-smooth">
+                        
+                        <!-- Basic Package -->
+                        <div class="w-[85vw] min-w-[280px] md:min-w-[320px] md:w-[320px] bg-gray-50 rounded-3xl border border-gray-200 overflow-hidden snap-center flex-shrink-0 flex flex-col hover:border-gray-400 transition-colors card-3d-hover">
+                            <div class="bg-gray-200 p-5 text-center">
+                                <h4 class="font-black text-gray-800 tracking-widest">BASIC</h4>
+                            </div>
+                            <div class="p-8 flex-1 flex flex-col">
+                                <p class="text-xs text-gray-500 font-bold mb-2 uppercase tracking-widest text-center">Starter Website</p>
+                                <div class="text-center mb-8">
+                                    <span class="text-4xl font-black text-black">₹5,999<span class="text-xl text-gray-400">+</span></span>
+                                </div>
+                                <ul class="space-y-4 mb-8 flex-1 text-sm text-gray-600 font-medium">
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> Up to 5 Pages</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> Responsive Design</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> Basic SEO Setup</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> WhatsApp Integration</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> Speed Optimized</li>
+                                </ul>
+                                <button onclick="openWhatsAppModal('I am interested in the Basic Package (₹5,999+)')" class="w-full py-4 rounded-xl border-2 border-black text-black font-bold hover:bg-black hover:text-white transition-all mt-auto">
+                                    Select Plan
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Standard Package -->
+                        <div class="w-[85vw] min-w-[280px] md:min-w-[320px] md:w-[320px] bg-white rounded-3xl border border-gray-200 overflow-hidden snap-center flex-shrink-0 flex flex-col shadow-xl relative transform md:-translate-y-2 card-3d-hover">
+                            <!-- Badge -->
+                            <div class="absolute top-0 right-0 bg-black text-white text-[10px] font-bold px-4 py-1.5 rounded-bl-xl z-10 tracking-widest">
+                                MOST POPULAR
+                            </div>
+                            <div class="bg-gray-900 p-5 text-center">
+                                <h4 class="font-black text-white tracking-widest">STANDARD</h4>
+                            </div>
+                            <div class="p-8 flex-1 flex flex-col relative">
+                                <p class="text-xs text-gray-400 font-bold mb-2 uppercase tracking-widest text-center">Business Website</p>
+                                <div class="text-center mb-8">
+                                    <span class="text-4xl font-black text-black">₹9,999<span class="text-xl text-gray-400">+</span></span>
+                                </div>
+                                <ul class="space-y-4 mb-8 flex-1 text-sm text-gray-600 font-medium">
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black"></i> Up to 10 Pages</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black"></i> Responsive Design</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black"></i> Advanced SEO</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black"></i> Dynamic Contact Form</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black"></i> Social Media Links</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-black"></i> 1 Month Free Support</li>
+                                </ul>
+                                <button onclick="openWhatsAppModal('I am interested in the Standard Package (₹9,999+)')" class="w-full py-4 rounded-xl bg-black text-white font-bold hover:bg-gray-800 transition-all shadow-lg mt-auto transform hover:-translate-y-1">
+                                    Select Plan
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Premium Package -->
+                        <div class="w-[85vw] min-w-[280px] md:min-w-[320px] md:w-[320px] bg-gray-50 rounded-3xl border border-gray-200 overflow-hidden snap-center flex-shrink-0 flex flex-col hover:border-gray-400 transition-colors relative card-3d-hover">
+                            <div class="bg-gray-300 p-5 text-center">
+                                <h4 class="font-black text-gray-800 tracking-widest">PREMIUM</h4>
+                            </div>
+                            <div class="p-8 flex-1 flex flex-col">
+                                <p class="text-xs text-gray-500 font-bold mb-2 uppercase tracking-widest text-center">E-Commerce Ready</p>
+                                <div class="text-center mb-8">
+                                    <span class="text-4xl font-black text-black">₹19,999<span class="text-xl text-gray-400">+</span></span>
+                                </div>
+                                <ul class="space-y-4 mb-8 flex-1 text-sm text-gray-600 font-medium">
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> E-Commerce Setup</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> Payment Gateway</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> Order Management</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> Unlimited Products*</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> Custom Dashboard</li>
+                                    <li class="flex items-center gap-3"><i class="fas fa-check-circle text-gray-400"></i> Advanced Security</li>
+                                </ul>
+                                <button onclick="openWhatsAppModal('I am interested in the Premium E-Commerce Package (₹19,999+)')" class="w-full py-4 rounded-xl border-2 border-black text-black font-bold hover:bg-black hover:text-white transition-all mt-auto">
+                                    Select Plan
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Custom Package -->
+                        <div class="w-[85vw] min-w-[280px] md:min-w-[320px] md:w-[320px] bg-white rounded-3xl border-2 border-dashed border-gray-300 overflow-hidden snap-center flex-shrink-0 flex flex-col hover:border-solid hover:border-gray-500 transition-all card-3d-hover">
+                            <div class="p-8 flex-1 flex flex-col items-center justify-center text-center">
+                                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                                    <i class="fas fa-code-branch text-2xl text-black"></i>
+                                </div>
+                                <h4 class="font-black text-xl mb-2 text-black">CUSTOM SOLUTION</h4>
+                                <p class="text-xs text-gray-500 font-bold mb-6 uppercase tracking-widest">Web Apps & Portals</p>
+                                
+                                <p class="text-gray-600 text-sm mb-8 leading-relaxed font-medium">Need complex logic, a SaaS platform, or a completely unique web application? Let's talk specifics.</p>
+                                
+                                <button onclick="openWhatsAppModal('I need a Custom Quote for my project')" class="w-full py-4 rounded-xl border border-gray-300 text-black font-bold hover:bg-gray-100 transition-colors mt-auto">
+                                    Get a Quote
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Scroll Progress Bar -->
+                <div class="max-w-7xl mx-auto px-6 md:px-12 mt-2 flex items-center gap-4">
+                    <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden relative">
+                        <div id="packages-progress" class="h-full bg-black absolute left-0 top-0 transition-all duration-150 rounded-full w-1/4"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- DEMO THEMES SECTION -->
+            <!-- ========================================== -->
+            <section id="demos" class="py-16 md:py-24 bg-black text-white relative overflow-hidden fade-in-section">
+                <!-- Abstract Background -->
+                <div class="absolute inset-0 opacity-20 pointer-events-none">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black"></div>
+                </div>
+                
+                <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 mb-10">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-2">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-sm font-bold tracking-widest uppercase text-gray-400 mb-2">Experience Quality</h3>
+                            <h2 class="text-3xl md:text-5xl font-black mb-4 text-white">Interactive Demos</h2>
+                            <p class="text-gray-400 text-sm max-w-xl">Click any card to launch a live preview of our high-converting templates.</p>
+                        </div>
+                        <!-- Scroll Buttons -->
+                        <div class="hidden md:flex gap-3 shrink-0">
+                            <button class="w-12 h-12 rounded-full border-2 border-gray-700 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black hover:border-white transition-all" onclick="scrollContainer('demos-container', -320)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="w-12 h-12 rounded-full border-2 border-gray-700 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black hover:border-white transition-all" onclick="scrollContainer('demos-container', 320)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HORIZONTAL SCROLL CONTAINER -->
+                <div class="pl-6 md:pl-12 pr-6 overflow-hidden perspective-1000 relative z-10">
+                    <div id="demos-container" class="flex gap-6 overflow-x-auto hide-scrollbar pb-8 pt-4 snap-x snap-mandatory items-stretch scroll-smooth">
+                        
+                        <!-- Demo Card: Gym -->
+                        <div onclick="openDemoModal('gym')" class="w-[85vw] min-w-[280px] sm:w-[320px] sm:min-w-[320px] snap-start flex-shrink-0 group cursor-pointer bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-gray-500 transition-all duration-300 card-3d-hover flex flex-col shadow-2xl">
+                            <div class="h-56 relative overflow-hidden shrink-0">
+                                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-70 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-gray-700">Preview</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-1 bg-gray-900">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white"><i class="fas fa-dumbbell text-xs"></i></div>
+                                    <h4 class="text-xl font-bold">Fitness & Gym</h4>
+                                </div>
+                                <p class="text-sm text-gray-400 flex-1">High-energy landing page for fitness centers with trainer profiles.</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo Card: Restaurant -->
+                        <div onclick="openDemoModal('restaurant')" class="w-[85vw] min-w-[280px] sm:w-[320px] sm:min-w-[320px] snap-start flex-shrink-0 group cursor-pointer bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-gray-500 transition-all duration-300 card-3d-hover flex flex-col shadow-2xl">
+                            <div class="h-56 relative overflow-hidden shrink-0">
+                                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-70 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-gray-700">Preview</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-1 bg-gray-900">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white"><i class="fas fa-utensils text-xs"></i></div>
+                                    <h4 class="text-xl font-bold">Fine Dining</h4>
+                                </div>
+                                <p class="text-sm text-gray-400 flex-1">Elegant restaurant website with signature dishes and menu layout.</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo Card: Startup -->
+                        <div onclick="openDemoModal('startup')" class="w-[85vw] min-w-[280px] sm:w-[320px] sm:min-w-[320px] snap-start flex-shrink-0 group cursor-pointer bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-gray-500 transition-all duration-300 card-3d-hover flex flex-col shadow-2xl">
+                            <div class="h-56 relative overflow-hidden shrink-0">
+                                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-70 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-gray-700">Preview</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-1 bg-gray-900">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white"><i class="fas fa-rocket text-xs"></i></div>
+                                    <h4 class="text-xl font-bold">Tech SaaS</h4>
+                                </div>
+                                <p class="text-sm text-gray-400 flex-1">Modern, clean design for software startups and tech products.</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo Card: Business -->
+                        <div onclick="openDemoModal('business')" class="w-[85vw] min-w-[280px] sm:w-[320px] sm:min-w-[320px] snap-start flex-shrink-0 group cursor-pointer bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-gray-500 transition-all duration-300 card-3d-hover flex flex-col shadow-2xl">
+                            <div class="h-56 relative overflow-hidden shrink-0">
+                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-70 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-gray-700">Preview</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-1 bg-gray-900">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white"><i class="fas fa-briefcase text-xs"></i></div>
+                                    <h4 class="text-xl font-bold">Corporate Firm</h4>
+                                </div>
+                                <p class="text-sm text-gray-400 flex-1">Highly professional setup for consulting firms and agencies.</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo Card: E-Commerce -->
+                        <div onclick="openDemoModal('ecommerce')" class="w-[85vw] min-w-[280px] sm:w-[320px] sm:min-w-[320px] snap-start flex-shrink-0 group cursor-pointer bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-gray-500 transition-all duration-300 card-3d-hover flex flex-col shadow-2xl">
+                            <div class="h-56 relative overflow-hidden shrink-0">
+                                <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-70 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-gray-700">Preview</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-1 bg-gray-900">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white"><i class="fas fa-shopping-bag text-xs"></i></div>
+                                    <h4 class="text-xl font-bold">E-Commerce</h4>
+                                </div>
+                                <p class="text-sm text-gray-400 flex-1">Modern online store with product grids and category banners.</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo Card: Portfolio -->
+                        <div onclick="openDemoModal('portfolio')" class="w-[85vw] min-w-[280px] sm:w-[320px] sm:min-w-[320px] snap-start flex-shrink-0 group cursor-pointer bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-gray-500 transition-all duration-300 card-3d-hover flex flex-col shadow-2xl">
+                            <div class="h-56 relative overflow-hidden shrink-0">
+                                <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-70 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-gray-700">Preview</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-1 bg-gray-900">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white"><i class="fas fa-paint-brush text-xs"></i></div>
+                                    <h4 class="text-xl font-bold">Creative Portfolio</h4>
+                                </div>
+                                <p class="text-sm text-gray-400 flex-1">Minimalist and striking layout to showcase your best work.</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo Card: Blog -->
+                        <div onclick="openDemoModal('blog')" class="w-[85vw] min-w-[280px] sm:w-[320px] sm:min-w-[320px] snap-start flex-shrink-0 group cursor-pointer bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-gray-500 transition-all duration-300 card-3d-hover flex flex-col shadow-2xl">
+                            <div class="h-56 relative overflow-hidden shrink-0">
+                                <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-70 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-gray-700">Preview</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-1 bg-gray-900">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white"><i class="fas fa-newspaper text-xs"></i></div>
+                                    <h4 class="text-xl font-bold">Magazine Blog</h4>
+                                </div>
+                                <p class="text-sm text-gray-400 flex-1">Content-focused layout for writers, journalists, and news portals.</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo Card: Real Estate -->
+                        <div onclick="openDemoModal('realestate')" class="w-[85vw] min-w-[280px] sm:w-[320px] sm:min-w-[320px] snap-start flex-shrink-0 group cursor-pointer bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 hover:border-gray-500 transition-all duration-300 card-3d-hover flex flex-col shadow-2xl">
+                            <div class="h-56 relative overflow-hidden shrink-0">
+                                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-70 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-gray-700">Preview</div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-1 bg-gray-900">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white"><i class="fas fa-home text-xs"></i></div>
+                                    <h4 class="text-xl font-bold">Real Estate</h4>
+                                </div>
+                                <p class="text-sm text-gray-400 flex-1">Property listings, agent profiles, and beautiful image galleries.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Scroll Progress Bar -->
+                <div class="max-w-7xl mx-auto px-6 md:px-12 mt-2 flex items-center gap-4 relative z-10">
+                    <div class="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden relative">
+                        <div id="demos-progress" class="h-full bg-white absolute left-0 top-0 transition-all duration-150 rounded-full w-1/4"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- ADDITIONAL INFO SECTION -->
+            <!-- ========================================== -->
+            <section class="py-16 bg-jasa-gray border-t border-gray-200 fade-in-section">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="grid lg:grid-cols-2 gap-10">
+                        
+                        <!-- Additional Services -->
+                        <div id="additional" class="bg-white p-6 md:p-10 rounded-3xl border border-gray-200 shadow-sm card-3d-hover">
+                            <h3 class="text-xl font-bold mb-6 text-black flex items-center justify-between border-b border-gray-100 pb-4">
+                                Add-on Services
+                            </h3>
+                            <ul class="space-y-4 text-sm divide-y divide-gray-50">
+                                <li class="flex items-center justify-between pt-2">
+                                    <div class="flex items-center gap-3 font-medium text-gray-700">
+                                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"><i class="fas fa-globe text-gray-500"></i></div> 
+                                        DOMAIN (GoDaddy/Namecheap)
+                                    </div>
+                                    <span class="font-bold text-black">₹ 799+ <span class="text-xs font-normal text-gray-500">/ year</span></span>
+                                </li>
+                                <li class="flex items-center justify-between pt-4">
+                                    <div class="flex items-center gap-3 font-medium text-gray-700">
+                                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"><i class="fas fa-cloud text-gray-500"></i></div> 
+                                        WEB HOSTING
+                                    </div>
+                                    <span class="font-bold text-black">₹ 1,499+ <span class="text-xs font-normal text-gray-500">/ year</span></span>
+                                </li>
+                                <li class="flex items-center justify-between pt-4">
+                                    <div class="flex items-center gap-3 font-medium text-gray-700">
+                                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"><i class="fas fa-keyboard text-gray-500"></i></div> 
+                                        DATA ENTRY / CONTENT
+                                    </div>
+                                    <span class="font-bold text-black">₹ 200+ <span class="text-xs font-normal text-gray-500">/ page</span></span>
+                                </li>
+                                <li class="flex items-center justify-between pt-4">
+                                    <div class="flex items-center gap-3 font-medium text-gray-700">
+                                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"><i class="fas fa-cog text-gray-500"></i></div> 
+                                        MAINTENANCE
+                                    </div>
+                                    <span class="font-bold text-black">₹ 999+ <span class="text-xs font-normal text-gray-500">/ month</span></span>
+                                </li>
+                                <li class="flex items-center justify-between pt-4">
+                                    <div class="flex items-center gap-3 font-medium text-gray-700">
+                                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"><i class="fas fa-paint-brush text-gray-500"></i></div> 
+                                        LOGO DESIGN
+                                    </div>
+                                    <span class="font-bold text-black">₹ 1,499+ <span class="text-xs font-normal text-gray-500">/ one-time</span></span>
+                                </li>
+                            </ul>
+                            <p class="text-xs text-gray-400 mt-6 italic text-center">*Prices are approximate and vary based on requirements.</p>
+                        </div>
+
+                        <!-- Deployment Platforms -->
+                        <div id="platforms" class="bg-white p-6 md:p-10 rounded-3xl border border-gray-200 shadow-sm flex flex-col card-3d-hover">
+                            <h3 class="text-xl font-bold mb-6 text-black border-b border-gray-100 pb-4">
+                                Deployment Platforms
+                            </h3>
+                            <p class="text-sm text-gray-500 mb-8">We deploy your websites on the world's most robust and fast edge networks to ensure 99.9% uptime.</p>
+                            
+                            <div class="space-y-4 flex-1">
+                                <!-- Cloudflare -->
+                                <div class="bg-gray-50 p-5 rounded-2xl border border-gray-200 hover:border-gray-300 transition-colors flex items-center gap-5">
+                                    <i class="fab fa-cloudflare text-4xl text-orange-500 icon-animated"></i>
+                                    <div>
+                                        <h4 class="font-bold text-black text-lg">Cloudflare Pages</h4>
+                                        <p class="text-xs text-gray-500 mt-1">Edge Deployment & DDOS Protection</p>
+                                    </div>
+                                </div>
+
+                                <!-- Netlify -->
+                                <div class="bg-gray-50 p-5 rounded-2xl border border-gray-200 hover:border-gray-300 transition-colors flex items-center gap-5">
+                                    <div class="w-10 h-10 rounded-lg bg-teal-500 flex items-center justify-center text-white font-bold text-xl icon-animated" style="animation-delay: 0.5s;">N</div>
+                                    <div>
+                                        <h4 class="font-bold text-black text-lg">Netlify</h4>
+                                        <p class="text-xs text-gray-500 mt-1">Global Platform & CI/CD</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- ADMIN PANELS -->
+            <!-- ========================================== -->
+            <section id="features" class="py-16 md:py-24 bg-white border-t border-gray-200 fade-in-section">
+                <div class="max-w-7xl mx-auto px-6 md:px-12">
+                    <div class="bg-black text-white rounded-[2rem] p-8 md:p-12 lg:p-16 overflow-hidden relative shadow-2xl card-3d-hover">
+                        <!-- Abstract Background Image -->
+                        <div class="absolute inset-0 opacity-[0.15] mix-blend-screen pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <div class="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight">We Build Powerful <br/> Admin Panels</h2>
+                                <p class="text-gray-300 font-bold mb-8 text-sm uppercase tracking-widest border-l-4 border-white pl-4">Custom Logic & Role Based Access</p>
+                                
+                                <ul class="space-y-5 text-gray-300 text-sm md:text-base font-medium">
+                                    <li class="flex items-start gap-4"><i class="fas fa-user-shield text-white mt-1 text-lg"></i> Multiple Roles (Admin, Editor, Viewer)</li>
+                                    <li class="flex items-start gap-4"><i class="fas fa-database text-white mt-1 text-lg"></i> Data Management (CRUD operations)</li>
+                                    <li class="flex items-start gap-4"><i class="fas fa-lock text-white mt-1 text-lg"></i> Secure Login & Activity Logging</li>
+                                    <li class="flex items-start gap-4"><i class="fas fa-chart-pie text-white mt-1 text-lg"></i> Custom Analytics & Dashboards</li>
+                                </ul>
+                                
+                                <button onclick="openWhatsAppModal('I need a custom Admin Panel / Dashboard')" class="mt-10 bg-white text-black px-8 py-4 rounded-xl font-bold hover:bg-gray-200 transition-colors shadow-lg transform hover:-translate-y-1">
+                                    Enquire Now
+                                </button>
+                            </div>
+                            
+                            <div class="relative perspective-1000 mt-12 lg:mt-0 max-w-sm mx-auto lg:max-w-none w-full scale-90 sm:scale-100">
+                                <div class="bg-gray-800 rounded-2xl p-2 md:p-3 shadow-2xl border border-gray-700 transform lg:rotate-y-[-10deg]">
+                                    <div class="bg-white rounded-xl h-56 md:h-72 flex flex-col overflow-hidden text-black shadow-inner">
+                                        <div class="h-10 md:h-12 bg-gray-100 border-b border-gray-200 flex items-center px-4 justify-between">
+                                            <div class="font-bold text-xs md:text-sm">Admin Dashboard</div>
+                                            <div class="w-6 h-6 rounded-full bg-gray-300"></div>
+                                        </div>
+                                        <div class="flex-1 flex">
+                                            <div class="w-1/4 bg-gray-50 border-r border-gray-200 p-3 md:p-4 space-y-3">
+                                                <div class="h-3 md:h-4 bg-gray-200 rounded w-3/4"></div>
+                                                <div class="h-3 md:h-4 bg-gray-200 rounded w-full"></div>
+                                                <div class="h-3 md:h-4 bg-gray-200 rounded w-5/6"></div>
+                                            </div>
+                                            <div class="w-3/4 p-4 md:p-6 flex flex-col gap-4">
+                                                <div class="flex gap-3">
+                                                    <div class="flex-1 h-12 md:h-16 bg-gray-100 rounded-lg border border-gray-200"></div>
+                                                    <div class="flex-1 h-12 md:h-16 bg-gray-100 rounded-lg border border-gray-200"></div>
+                                                    <div class="flex-1 h-12 md:h-16 bg-gray-100 rounded-lg border border-gray-200"></div>
+                                                </div>
+                                                <div class="flex-1 bg-gray-50 rounded-lg border border-gray-200 flex items-center justify-center shadow-inner">
+                                                    <i class="fas fa-chart-line text-5xl md:text-6xl text-gray-200"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Decorative shield -->
+                                <div class="absolute -right-2 md:-right-6 -bottom-6 w-20 h-24 md:w-24 md:h-28 bg-gray-900 rounded-2xl border-4 border-gray-700 flex items-center justify-center shadow-2xl transform rotate-12 icon-animated">
+                                    <i class="fas fa-lock text-3xl md:text-4xl text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- FAQ SECTION -->
+            <!-- ========================================== -->
+            <section class="py-16 md:py-24 bg-gray-50 fade-in-section border-y border-gray-200">
+                <div class="max-w-4xl mx-auto px-6 md:px-12">
+                    <div class="text-center mb-12">
+                        <h3 class="text-sm font-bold tracking-widest uppercase text-gray-400 mb-2">Got Questions?</h3>
+                        <h2 class="text-3xl md:text-4xl font-black text-black">Frequently Asked Questions</h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="border border-gray-200 rounded-2xl overflow-hidden card-3d-hover bg-white shadow-sm">
+                            <button class="faq-toggle w-full px-6 py-5 text-left font-bold flex justify-between items-center transition-colors focus:outline-none text-black">
+                                <span>How long does it take to build a website?</span>
+                                <i class="fas fa-chevron-down text-gray-400 faq-icon"></i>
+                            </button>
+                            <div class="faq-answer bg-gray-50">
+                                <p class="px-6 py-5 text-sm text-gray-600 border-t border-gray-100 leading-relaxed font-medium">Depending on the complexity, a standard website (5-10 pages) takes about 1-2 weeks. E-commerce or custom web apps may take 3-6 weeks.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-2xl overflow-hidden card-3d-hover bg-white shadow-sm">
+                            <button class="faq-toggle w-full px-6 py-5 text-left font-bold flex justify-between items-center transition-colors focus:outline-none text-black">
+                                <span>Do I need to pay the full amount upfront?</span>
+                                <i class="fas fa-chevron-down text-gray-400 faq-icon"></i>
+                            </button>
+                            <div class="faq-answer bg-gray-50">
+                                <p class="px-6 py-5 text-sm text-gray-600 border-t border-gray-100 leading-relaxed font-medium">No, we typically work on a milestone basis. Usually, it's 50% upfront to start the project and 50% upon final approval before launch.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-2xl overflow-hidden card-3d-hover bg-white shadow-sm">
+                            <button class="faq-toggle w-full px-6 py-5 text-left font-bold flex justify-between items-center transition-colors focus:outline-none text-black">
+                                <span>Will my website be mobile-friendly?</span>
+                                <i class="fas fa-chevron-down text-gray-400 faq-icon"></i>
+                            </button>
+                            <div class="faq-answer bg-gray-50">
+                                <p class="px-6 py-5 text-sm text-gray-600 border-t border-gray-100 leading-relaxed font-medium">Absolutely! 100% of the websites we build are fully responsive, meaning they will look great and function perfectly on mobile phones, tablets, and desktops.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- CTA & FOOTER -->
+            <!-- ========================================== -->
+            <footer class="bg-black text-white pt-20 pb-10 relative overflow-hidden">
+                <!-- Background Image -->
+                <div class="absolute inset-0 opacity-[0.08] mix-blend-screen pointer-events-none">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="max-w-7xl mx-auto px-6 md:px-12 text-center relative z-10">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-black mb-2 tracking-tight">Let's Build Your</h2>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-black mb-10 text-gray-400 tracking-tight">Online Success.</h2>
+                    
+                    <button onclick="openWhatsAppModal('Hello Jasa Solutions, I want to discuss a project')" class="inline-flex items-center gap-5 bg-green-500 hover:bg-green-600 text-white px-8 md:px-10 py-4 md:py-5 rounded-full transition-all shadow-[0_10px_30px_rgba(34,197,94,0.3)] hover:shadow-[0_15px_40px_rgba(34,197,94,0.5)] mb-16 transform hover:-translate-y-1">
+                        <i class="fab fa-whatsapp text-4xl"></i>
+                        <div class="text-left">
+                            <div class="text-xl md:text-2xl font-black leading-none mb-1">+91 76392 76705</div>
+                            <div class="text-xs md:text-sm font-bold uppercase tracking-widest opacity-90">Message us today</div>
+                        </div>
+                    </button>
+                    
+                    <div class="grid md:grid-cols-3 gap-10 text-left border-t border-gray-800 pt-16 mb-16">
+                        <div class="flex items-start gap-5">
+                            <div class="w-14 h-14 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-clock text-gray-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">On Time Delivery</h4>
+                                <p class="text-sm text-gray-500 leading-relaxed font-medium">We respect your time and strict deadlines.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="w-14 h-14 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-tags text-gray-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Affordable Prices</h4>
+                                <p class="text-sm text-gray-500 leading-relaxed font-medium">Premium quality without breaking the bank.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="w-14 h-14 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-bullseye text-gray-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Your Vision</h4>
+                                <p class="text-sm text-gray-500 leading-relaxed font-medium">Bringing your custom ideas to reality.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-bold uppercase tracking-widest text-gray-500">
+                        <div class="text-white">Jasa Solutions</div>
+                        <p>&copy; 2026 Jasa Solutions.</p>
+                        <p>Great Website. Stronger Business.</p>
+                    </div>
+                </div>
+            </footer>
+
+        </div> <!-- End Content Container -->
+    </main>
+
+    <!-- Global Floating Contact Button with Ringing Animation -->
+    <button onclick="openWhatsAppModal('Hello! I would like to know more about your website development services.')" class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_20px_rgba(34,197,94,0.4)] hover:bg-green-600 transition-colors btn-ring border-2 border-white">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </button>
+
+    <!-- Global Back To Top Button -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-24 right-6 z-40 bg-black text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-800 transition-all border border-gray-800">
+        <i class="fas fa-arrow-up text-sm"></i>
+    </button>
+
+    <!-- ========================================== -->
+    <!-- CUSTOM WHATSAPP CONFIRMATION MODAL -->
+    <!-- ========================================== -->
+    <!-- Note the z-[120] to ensure it's always above everything including demo modal -->
+    <div id="whatsapp-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[120] hidden items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-sm sm:max-w-md w-full overflow-hidden transform scale-95 translate-y-4 opacity-0 transition-all duration-300" id="modal-content">
+            <!-- Modal Header -->
+            <div class="bg-black p-8 text-center relative overflow-hidden">
+                <!-- Responsive Decorative Image -->
+                <div class="absolute inset-0 opacity-20">
+                    <img src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                
+                <!-- Animated Icon -->
+                <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2 shadow-[0_0_25px_rgba(34,197,94,0.4)] border-4 border-black relative z-10 animate-bounce-subtle mt-2">
+                    <i class="fab fa-whatsapp text-white text-4xl relative z-10"></i>
+                    <!-- Ripple effect -->
+                    <span class="absolute inset-0 rounded-full border-2 border-green-400 animate-ping opacity-75"></span>
+                </div>
+                
+                <h3 class="text-white text-xl md:text-2xl font-black mt-4 relative z-10 tracking-tight">Connect on WhatsApp</h3>
+                
+                <button onclick="closeWhatsAppModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-20 bg-black/50 w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6 md:p-8">
+                <p class="text-center text-gray-500 mb-6 text-sm md:text-base font-medium">
+                    You are about to be redirected to WhatsApp to chat with <strong>Jasa Solutions</strong>.
+                </p>
+                
+                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-4 md:p-5 mb-8 relative shadow-inner">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 block">Your Message:</label>
+                    <p id="whatsapp-message-preview" class="text-black text-sm md:text-base italic font-bold">"Hi there..."</p>
+                    <i class="fas fa-quote-right absolute bottom-3 right-4 text-gray-200 text-3xl opacity-50"></i>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
+                    <button onclick="closeWhatsAppModal()" class="w-full sm:flex-1 py-4 px-4 rounded-xl border-2 border-gray-200 text-gray-600 font-bold hover:bg-gray-50 hover:border-gray-300 transition-colors text-sm">
+                        Cancel
+                    </button>
+                    <button id="confirm-whatsapp-btn" class="w-full sm:flex-1 py-4 px-4 rounded-xl bg-green-500 text-white font-bold hover:bg-green-600 shadow-[0_8px_15px_rgba(34,197,94,0.3)] hover:shadow-[0_10px_20px_rgba(34,197,94,0.4)] transition-all flex items-center justify-center gap-2 text-sm transform hover:-translate-y-0.5">
+                        Continue <i class="fas fa-external-link-alt text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- DEMO PREVIEW MODAL -->
+    <!-- ========================================== -->
+    <div id="demo-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[110] hidden items-center justify-center p-2 sm:p-6 opacity-0 pointer-events-none flex-col transition-opacity duration-300">
+        <!-- Browser-like Window -->
+        <div class="w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[90vh] demo-content-enter">
+            <!-- Browser Header -->
+            <div class="bg-gray-100 border-b border-gray-300 px-4 py-3 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-600" onclick="closeDemoModal()"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="bg-white text-gray-500 text-xs px-4 py-1.5 rounded-md border border-gray-200 flex-1 max-w-md mx-4 text-center truncate flex items-center justify-center gap-2 font-mono shadow-inner">
+                    <i class="fas fa-lock text-[10px]"></i> <span id="demo-url">https://jasasolutions.com/demo</span>
+                </div>
+                <button onclick="closeDemoModal()" class="bg-red-50 text-red-600 hover:bg-red-500 hover:text-white px-3 py-1.5 md:px-4 md:py-1.5 rounded-lg text-xs md:text-sm font-bold transition-all flex items-center gap-1.5 border border-red-200 hover:border-red-500 shadow-sm ml-2">
+                    <i class="fas fa-times"></i> <span class="hidden sm:inline">Close</span>
+                </button>
+            </div>
+            
+            <!-- Demo Content Area -->
+            <div class="flex-1 overflow-y-auto bg-gray-50 relative" id="demo-frame-container">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+        
+        <button onclick="openWhatsAppModal('I love the template I just saw! Let\'s build it for my business.')" class="mt-4 bg-black border border-gray-700 text-white px-8 py-3 rounded-full font-bold shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:bg-gray-800 transition-colors flex items-center gap-2">
+            <i class="fab fa-whatsapp text-green-500"></i> Build This Template
+        </button>
+    </div>
+
+    <script>
+        // EDITABLE DATA: WhatsApp Number
+        const WHATSAPP_NUMBER = "917639276705";
+        let currentWhatsAppMessage = "";
+
+        // DOM Elements
+        const sideMenu = document.getElementById('side-menu');
+        const openMenuBtn = document.getElementById('open-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const menuLinks = document.querySelectorAll('.menu-link');
+        
+        const whatsappModal = document.getElementById('whatsapp-modal');
+        const modalContent = document.getElementById('modal-content');
+        const messagePreview = document.getElementById('whatsapp-message-preview');
+        const confirmBtn = document.getElementById('confirm-whatsapp-btn');
+
+        // --- Side Menu Logic ---
+        function openMenu() {
+            sideMenu.classList.remove('-translate-x-full');
+            menuOverlay.classList.remove('hidden');
+            setTimeout(() => { menuOverlay.classList.remove('opacity-0'); }, 10);
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeMenu() {
+            sideMenu.classList.add('-translate-x-full');
+            menuOverlay.classList.add('opacity-0');
+            setTimeout(() => { menuOverlay.classList.add('hidden'); }, 300); 
+            document.body.style.overflow = '';
+        }
+
+        openMenuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+        
+        menuLinks.forEach(link => { link.addEventListener('click', closeMenu); });
+
+        // --- Horizontal Scrolling & Progress Bar Helper ---
+        function scrollContainer(containerId, amount) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.scrollBy({ left: amount, behavior: 'smooth' });
+            }
+        }
+        
+        function setupScrollProgress(containerId, progressId) {
+            const container = document.getElementById(containerId);
+            const progress = document.getElementById(progressId);
+            if(!container || !progress) return;
+
+            const updateProgress = () => {
+                const scrollLeft = container.scrollLeft;
+                const maxScroll = container.scrollWidth - container.clientWidth;
+                
+                if(maxScroll <= 0) {
+                    progress.style.width = '100%';
+                    progress.style.left = '0';
+                    return;
+                }
+                
+                const thumbWidthPercent = Math.max((container.clientWidth / container.scrollWidth) * 100, 20);
+                progress.style.width = thumbWidthPercent + '%';
+                
+                const scrollPercent = scrollLeft / maxScroll;
+                const maxLeftPercent = 100 - thumbWidthPercent;
+                progress.style.left = (scrollPercent * maxLeftPercent) + '%';
+            };
+            
+            container.addEventListener('scroll', updateProgress);
+            window.addEventListener('resize', updateProgress);
+            setTimeout(updateProgress, 100);
+        }
+
+        setupScrollProgress('services-container', 'services-progress');
+        setupScrollProgress('packages-container', 'packages-progress');
+        setupScrollProgress('demos-container', 'demos-progress');
+
+        // --- Auto Scroll Logic (Pauses on Hover/Touch) ---
+        function setupAutoScroll(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            let scrollInterval;
+            let isHovered = false;
+
+            const startAutoScroll = () => {
+                if (scrollInterval) clearInterval(scrollInterval);
+                scrollInterval = setInterval(() => {
+                    if (!isHovered) {
+                        // Check if reached the end
+                        if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
+                            // Reset to start smoothly
+                            container.scrollTo({ left: 0, behavior: 'smooth' });
+                        } else {
+                            // Scroll right by approximately one card width
+                            container.scrollBy({ left: 320, behavior: 'smooth' });
+                        }
+                    }
+                }, 3500); // Scrolls every 3.5 seconds
+            };
+
+            const stopAutoScroll = () => clearInterval(scrollInterval);
+
+            // Pause events
+            container.addEventListener('mouseenter', () => isHovered = true);
+            container.addEventListener('mouseleave', () => isHovered = false);
+            container.addEventListener('touchstart', () => isHovered = true, {passive: true});
+            container.addEventListener('touchend', () => {
+                // Wait a moment after touch release before resuming
+                setTimeout(() => { isHovered = false; }, 2000);
+            }, {passive: true});
+
+            startAutoScroll();
+        }
+
+        // Initialize auto scroll for all horizontal containers
+        setupAutoScroll('services-container');
+        setupAutoScroll('packages-container');
+        setupAutoScroll('demos-container');
+
+        // --- Fade In Animation Logic (Intersection Observer) ---
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+
+        // --- Custom WhatsApp Modal Logic ---
+        function openWhatsAppModal(defaultMessage = "Hi Jasa Solutions, I would like to know more about your services.") {
+            currentWhatsAppMessage = defaultMessage;
+            messagePreview.innerText = `"${defaultMessage}"`;
+            
+            whatsappModal.classList.remove('hidden');
+            // Force reflow
+            void whatsappModal.offsetWidth;
+            
+            whatsappModal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95', 'translate-y-4', 'opacity-0');
+            modalContent.classList.add('scale-100', 'translate-y-0', 'opacity-100');
+        }
+
+        function closeWhatsAppModal() {
+            whatsappModal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100', 'translate-y-0', 'opacity-100');
+            modalContent.classList.add('scale-95', 'translate-y-4', 'opacity-0');
+            
+            setTimeout(() => {
+                whatsappModal.classList.add('hidden');
+            }, 300); // match transition duration
+        }
+
+        // Handle actual redirection
+        confirmBtn.addEventListener('click', () => {
+            const encodedMessage = encodeURIComponent(currentWhatsAppMessage);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+            closeWhatsAppModal();
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (!whatsappModal.classList.contains('hidden')) {
+                    closeWhatsAppModal();
+                } else if (!demoModal.classList.contains('hidden')) {
+                    closeDemoModal();
+                }
+            }
+        });
+        
+        // Close modal when clicking outside content
+        whatsappModal.addEventListener('click', (e) => {
+            if (e.target === whatsappModal) {
+                closeWhatsAppModal();
+            }
+        });
+
+        // --- Demo Modal Logic & Templates ---
+        const demoModal = document.getElementById('demo-modal');
+        const demoUrl = document.getElementById('demo-url');
+        const demoContainer = document.getElementById('demo-frame-container');
+        
+        const demoTemplates = {
+            'gym': {
+                url: 'fitness-center.com',
+                html: `
+                    <div class="min-h-full font-sans bg-black text-white">
+                        <header class="p-4 md:p-6 flex justify-between items-center sticky top-0 w-full bg-black/90 backdrop-blur z-50 border-b border-gray-800">
+                            <div class="text-2xl font-black text-green-500 tracking-tighter">IRON<span class="text-white">GYM</span></div>
+                            <nav class="hidden md:flex gap-6 text-sm font-bold"><a href="#" class="hover:text-green-500 transition">Classes</a><a href="#" class="hover:text-green-500 transition">Trainers</a><a href="#" class="hover:text-green-500 transition">Pricing</a></nav>
+                            <button class="bg-green-500 text-black px-4 py-2 text-sm font-bold uppercase rounded hover:bg-white transition-colors">Join Now</button>
+                        </header>
+                        <section class="h-[70vh] relative flex items-center justify-center text-center px-4">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50"></div>
+                            <div class="relative z-10 pt-10">
+                                <h1 class="text-5xl md:text-7xl font-black uppercase italic mb-4 tracking-tight">Push Your <br><span class="text-green-500">Limits</span></h1>
+                                <p class="text-lg md:text-xl mb-8 max-w-lg mx-auto text-gray-300">State of the art equipment. Expert trainers. Open 24/7.</p>
+                                <button class="bg-white text-black px-8 py-4 font-black uppercase tracking-wider rounded-sm hover:bg-green-500 hover:text-black transition shadow-[0_0_20px_rgba(34,197,94,0.3)]">Start Free Trial</button>
+                            </div>
+                        </section>
+                        <section class="py-16 px-6 max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-center border-b border-gray-900 pb-20">
+                            <div class="p-8 border border-gray-800 rounded bg-gray-900/50 hover:border-green-500 hover:-translate-y-2 transition-all cursor-pointer">
+                                <i class="fas fa-dumbbell text-4xl text-green-500 mb-4"></i>
+                                <h3 class="font-bold text-xl mb-2">Pro Equipment</h3>
+                                <p class="text-gray-400 text-sm">Top tier machines for every muscle group, maintained daily.</p>
+                            </div>
+                            <div class="p-8 border border-gray-800 rounded bg-gray-900/50 hover:border-green-500 hover:-translate-y-2 transition-all cursor-pointer">
+                                <i class="fas fa-heartbeat text-4xl text-green-500 mb-4"></i>
+                                <h3 class="font-bold text-xl mb-2">Cardio Zone</h3>
+                                <p class="text-gray-400 text-sm">Spacious area dedicated to cardiovascular health with view.</p>
+                            </div>
+                            <div class="p-8 border border-gray-800 rounded bg-gray-900/50 hover:border-green-500 hover:-translate-y-2 transition-all cursor-pointer">
+                                <i class="fas fa-users text-4xl text-green-500 mb-4"></i>
+                                <h3 class="font-bold text-xl mb-2">Group Classes</h3>
+                                <p class="text-gray-400 text-sm">Yoga, HIIT, Pilates, and Spinning available daily.</p>
+                            </div>
+                        </section>
+                        <section class="py-20 px-6 bg-gray-950 text-center">
+                            <h2 class="text-3xl md:text-5xl font-black uppercase italic mb-4">Meet The <span class="text-green-500">Squad</span></h2>
+                            <p class="text-gray-400 mb-12 max-w-2xl mx-auto">Our elite trainers are here to push you beyond your goals.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                                <div class="group relative overflow-hidden rounded-lg">
+                                    <img src="https://images.unsplash.com/photo-1567598508481-65985588ce2a?auto=format&fit=crop&w=400&q=80" class="w-full h-80 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black to-transparent p-4 text-left">
+                                        <h4 class="font-bold text-xl">Alex Rivera</h4><p class="text-green-500 font-bold text-sm">Head Coach</p>
+                                    </div>
+                                </div>
+                                <div class="group relative overflow-hidden rounded-lg">
+                                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=400&q=80" class="w-full h-80 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black to-transparent p-4 text-left">
+                                        <h4 class="font-bold text-xl">Sarah Jenkins</h4><p class="text-green-500 font-bold text-sm">HIIT Specialist</p>
+                                    </div>
+                                </div>
+                                <div class="group relative overflow-hidden rounded-lg">
+                                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400&q=80" class="w-full h-80 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black to-transparent p-4 text-left">
+                                        <h4 class="font-bold text-xl">Mike Stone</h4><p class="text-green-500 font-bold text-sm">Powerlifting</p>
+                                    </div>
+                                </div>
+                                <div class="group relative overflow-hidden rounded-lg">
+                                    <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=400&q=80" class="w-full h-80 object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black to-transparent p-4 text-left">
+                                        <h4 class="font-bold text-xl">Elena Rostova</h4><p class="text-green-500 font-bold text-sm">Yoga & Mobility</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <footer class="bg-black py-10 text-center border-t border-gray-900 text-gray-500 text-sm">
+                            <p>© 2026 Iron Gym. All rights reserved.</p>
+                        </footer>
+                    </div>
+                `
+            },
+            'restaurant': {
+                url: 'the-gourmet-bistro.com',
+                html: `
+                    <div class="min-h-full font-serif bg-amber-50 text-gray-900">
+                        <header class="p-4 md:p-6 flex justify-between items-center border-b border-amber-200 sticky top-0 bg-amber-50/95 backdrop-blur z-50">
+                            <div class="text-xl font-bold tracking-widest uppercase text-amber-900">Le Bistrot</div>
+                            <nav class="hidden md:flex gap-8 text-sm italic"><a href="#" class="hover:text-amber-700">Menu</a><a href="#" class="hover:text-amber-700">Our Story</a><a href="#" class="hover:text-amber-700">Contact</a></nav>
+                            <button class="border border-amber-900 px-5 py-2 hover:bg-amber-900 hover:text-white transition uppercase text-xs tracking-widest">Reserve</button>
+                        </header>
+                        <section class="min-h-[60vh] flex flex-col md:flex-row">
+                            <div class="flex-1 flex flex-col justify-center p-8 md:p-24 order-2 md:order-1 text-center md:text-left bg-amber-50">
+                                <h1 class="text-4xl md:text-6xl font-medium mb-6 leading-tight text-amber-950">A Taste of <br>Perfection.</h1>
+                                <p class="mb-8 text-gray-600 max-w-md italic mx-auto md:mx-0">Experience culinary excellence with our locally sourced, seasonal ingredients prepared by award-winning chefs.</p>
+                                <div><button class="bg-amber-900 text-white px-8 py-4 tracking-widest text-sm hover:bg-amber-950 transition shadow-lg">VIEW MENU</button></div>
+                            </div>
+                            <div class="flex-1 bg-gray-200 order-1 md:order-2 h-64 md:h-auto relative">
+                                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover">
+                            </div>
+                        </section>
+                        <section class="py-20 px-6 text-center bg-white border-y border-amber-100">
+                            <h2 class="text-3xl font-medium mb-4 text-amber-950">Signature Dishes</h2>
+                            <p class="text-gray-500 italic mb-12">Crafted with passion, served with elegance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                                <div class="group cursor-pointer">
+                                    <div class="h-64 bg-gray-200 mb-6 rounded-t-full overflow-hidden border-4 border-amber-50"><img src="https://images.unsplash.com/photo-1544025162-831109a96e19?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700"></div>
+                                    <h4 class="font-bold text-xl text-amber-900">Truffle Risotto</h4>
+                                    <p class="text-gray-500 text-sm mt-2 italic">Wild mushrooms, parmesan crisp</p>
+                                    <p class="text-amber-900 font-bold mt-2">$28.00</p>
+                                </div>
+                                <div class="group cursor-pointer">
+                                    <div class="h-64 bg-gray-200 mb-6 rounded-t-full overflow-hidden border-4 border-amber-50"><img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700"></div>
+                                    <h4 class="font-bold text-xl text-amber-900">Wagyu Beef Steak</h4>
+                                    <p class="text-gray-500 text-sm mt-2 italic">Roasted root vegetables, red wine jus</p>
+                                    <p class="text-amber-900 font-bold mt-2">$55.00</p>
+                                </div>
+                                <div class="group cursor-pointer">
+                                    <div class="h-64 bg-gray-200 mb-6 rounded-t-full overflow-hidden border-4 border-amber-50"><img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700"></div>
+                                    <h4 class="font-bold text-xl text-amber-900">Handmade Pasta</h4>
+                                    <p class="text-gray-500 text-sm mt-2 italic">San Marzano tomatoes, fresh basil</p>
+                                    <p class="text-amber-900 font-bold mt-2">$24.00</p>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="py-20 px-6 bg-amber-900 text-amber-50 text-center">
+                            <i class="fas fa-quote-left text-4xl opacity-50 mb-6"></i>
+                            <h3 class="text-2xl md:text-4xl max-w-3xl mx-auto leading-relaxed italic mb-8">"An unforgettable dining experience. The ambiance, the service, and above all, the exquisite flavors make Le Bistrot a true gem in the city."</h3>
+                            <p class="font-sans font-bold tracking-widest text-sm uppercase text-amber-300">- The Culinary Times</p>
+                        </section>
+                        <footer class="bg-amber-950 py-12 text-center text-amber-200/50 text-sm">
+                            <p>123 Culinary Avenue, Food City • Reservations: (555) 123-4567</p>
+                            <p class="mt-4">© 2026 Le Bistrot.</p>
+                        </footer>
+                    </div>
+                `
+            },
+            'startup': {
+                url: 'cloud-saas-platform.io',
+                html: `
+                    <div class="min-h-full font-sans bg-slate-50 text-slate-900">
+                        <header class="p-4 flex justify-between items-center bg-white/90 backdrop-blur border-b border-slate-200 sticky top-0 z-50 px-4 md:px-8">
+                            <div class="text-xl md:text-2xl font-bold flex items-center gap-2 text-slate-900"><i class="fas fa-cube text-blue-600"></i> Nexus.io</div>
+                            <nav class="hidden md:flex gap-8 text-sm font-semibold text-slate-500"><a href="#" class="hover:text-blue-600 transition">Product</a><a href="#" class="hover:text-blue-600 transition">Solutions</a><a href="#" class="hover:text-blue-600 transition">Pricing</a></nav>
+                            <div class="flex gap-4 items-center">
+                                <button class="text-sm font-semibold hidden md:block text-slate-600 hover:text-black">Log in</button>
+                                <button class="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 transition shadow-md shadow-blue-500/20">Start Free</button>
+                            </div>
+                        </header>
+                        <section class="py-24 px-4 text-center max-w-4xl mx-auto relative">
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl -z-10"></div>
+                            
+                            <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold mb-8">
+                                <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span></span>
+                                v2.0 is now live!
+                            </div>
+                            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-slate-900">Scale your infrastructure <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">in seconds.</span></h1>
+                            <p class="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed">The all-in-one platform for modern development teams. Deploy, monitor, and scale with unprecedented ease.</p>
+                            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 shadow-xl shadow-blue-500/30 transition-transform hover:-translate-y-1 text-lg">Get Started</button>
+                                <button class="bg-white border border-slate-200 text-slate-700 px-8 py-3 rounded-lg font-semibold hover:bg-slate-50 transition-colors text-lg">Read Docs</button>
+                            </div>
+                        </section>
+                        <section class="pb-24 px-4 md:px-8">
+                            <div class="bg-slate-900 rounded-2xl shadow-2xl h-auto md:h-[50vh] max-w-4xl mx-auto relative overflow-hidden border border-slate-800">
+                                <div class="absolute top-0 w-full h-10 bg-slate-800 flex items-center px-4 gap-2 border-b border-slate-700">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div><div class="w-3 h-3 rounded-full bg-yellow-500"></div><div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                    <div class="ml-4 text-slate-400 text-xs font-mono hidden sm:block">bash - user@macbook - 80x24</div>
+                                </div>
+                                <div class="pt-16 p-8 text-green-400 font-mono text-sm md:text-base leading-relaxed">
+                                    <p class="text-white">$ <span class="text-blue-400">npm</span> install @nexus/core</p>
+                                    <p class="text-slate-400 mt-2">Installing dependencies...</p>
+                                    <p class="text-slate-400">Done in 1.2s</p>
+                                    <p class="text-white mt-4">$ <span class="text-blue-400">nexus</span> deploy --production</p>
+                                    <p class="text-blue-400 mt-2">● Building project...</p>
+                                    <p class="text-purple-400">● Analyzing bundle size...</p>
+                                    <p class="text-green-400 mt-2 font-bold">✔ Deployed successfully to https://app.nexus.io</p>
+                                    <span class="animate-pulse inline-block w-2 h-4 bg-white mt-4"></span>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="py-24 bg-white border-y border-slate-200 px-6">
+                            <div class="max-w-6xl mx-auto text-center">
+                                <h2 class="text-3xl font-bold mb-16 text-slate-900">Everything you need to ship faster</h2>
+                                <div class="grid md:grid-cols-3 gap-12 text-left">
+                                    <div>
+                                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-xl mb-6"><i class="fas fa-bolt"></i></div>
+                                        <h3 class="text-xl font-bold mb-3">Edge Networking</h3>
+                                        <p class="text-slate-500">Deploy your code to 100+ global edge locations instantly for sub-50ms latency worldwide.</p>
+                                    </div>
+                                    <div>
+                                        <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-xl mb-6"><i class="fas fa-shield-alt"></i></div>
+                                        <h3 class="text-xl font-bold mb-3">Enterprise Security</h3>
+                                        <p class="text-slate-500">Built-in DDoS protection, automatic SSL, and advanced role-based access control.</p>
+                                    </div>
+                                    <div>
+                                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl mb-6"><i class="fas fa-chart-area"></i></div>
+                                        <h3 class="text-xl font-bold mb-3">Real-time Analytics</h3>
+                                        <p class="text-slate-500">Monitor traffic, performance, and errors in real-time with our custom dashboard.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <footer class="bg-slate-50 py-12 text-center text-slate-400 text-sm font-medium">
+                            <p>© 2026 Nexus.io Inc. All systems operational.</p>
+                        </footer>
+                    </div>
+                `
+            },
+            'business': {
+                url: 'apex-consulting-group.com',
+                html: `
+                    <div class="min-h-full font-sans bg-white text-gray-800">
+                        <header class="py-4 px-6 md:py-6 md:px-10 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur z-50">
+                            <div class="text-xl md:text-2xl font-light tracking-wide text-gray-900">APEX<span class="font-bold">CONSULTING</span></div>
+                            <nav class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-wider text-gray-500"><a href="#" class="hover:text-black transition">Expertise</a><a href="#" class="hover:text-black transition">Insights</a><a href="#" class="hover:text-black transition">About</a></nav>
+                            <button class="bg-black text-white px-4 md:px-6 py-2.5 text-xs font-bold uppercase tracking-wider hover:bg-gray-800 transition">Contact Us</button>
+                        </header>
+                        <section class="h-[60vh] md:h-[75vh] relative flex items-center">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale">
+                            <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-black/20"></div>
+                            <div class="relative z-10 px-6 md:px-10 max-w-3xl text-white">
+                                <div class="w-16 h-1 bg-white mb-8"></div>
+                                <h1 class="text-4xl md:text-6xl font-light leading-tight mb-6">Transforming Challenges Into <br><span class="font-bold">Strategic Advantages</span></h1>
+                                <p class="text-base md:text-xl opacity-90 mb-10 font-light max-w-xl leading-relaxed">We provide global management consulting services to help the world's most ambitious change-makers define the future.</p>
+                                <button class="border border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black transition">Our Services</button>
+                            </div>
+                        </section>
+                        <section class="py-20 px-6 md:px-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 border-b border-gray-100">
+                            <div>
+                                <h2 class="text-3xl md:text-4xl font-bold mb-6 leading-tight text-gray-900">Global Perspective. <br>Local Impact.</h2>
+                                <p class="text-gray-600 leading-relaxed mb-8 text-lg font-light">With over 20 years of experience, Apex Consulting helps organizations navigate complex markets and drive sustainable growth. Our experts bring deep industry knowledge and analytical rigor to every engagement.</p>
+                                <a href="#" class="font-bold text-sm uppercase tracking-wider text-black border-b-2 border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition">Read Our 2026 Annual Report &rarr;</a>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 md:gap-6">
+                                <div class="bg-gray-50 p-8 border-t-4 border-black hover:bg-gray-100 transition">
+                                    <h4 class="font-bold text-3xl md:text-4xl mb-2 text-gray-900">98%</h4>
+                                    <p class="text-xs text-gray-500 font-bold tracking-widest uppercase">Client Retention</p>
+                                </div>
+                                <div class="bg-gray-50 p-8 border-t-4 border-gray-300 hover:bg-gray-100 transition">
+                                    <h4 class="font-bold text-3xl md:text-4xl mb-2 text-gray-900">50+</h4>
+                                    <p class="text-xs text-gray-500 font-bold tracking-widest uppercase">Global Offices</p>
+                                </div>
+                                <div class="bg-gray-50 p-8 border-t-4 border-gray-300 hover:bg-gray-100 transition">
+                                    <h4 class="font-bold text-3xl md:text-4xl mb-2 text-gray-900">10k</h4>
+                                    <p class="text-xs text-gray-500 font-bold tracking-widest uppercase">Projects Done</p>
+                                </div>
+                                <div class="bg-gray-50 p-8 border-t-4 border-black hover:bg-gray-100 transition">
+                                    <h4 class="font-bold text-3xl md:text-4xl mb-2 text-gray-900">$5B+</h4>
+                                    <p class="text-xs text-gray-500 font-bold tracking-widest uppercase">Value Generated</p>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="py-20 px-6 md:px-10 max-w-6xl mx-auto">
+                            <h2 class="text-2xl font-bold mb-10 text-gray-900 uppercase tracking-widest text-center">Core Practice Areas</h2>
+                            <div class="grid sm:grid-cols-3 gap-8">
+                                <div class="border border-gray-200 p-8 hover:shadow-xl transition cursor-pointer">
+                                    <i class="fas fa-chart-pie text-3xl mb-6 text-gray-900"></i>
+                                    <h3 class="text-xl font-bold mb-3 text-gray-900">Corporate Strategy</h3>
+                                    <p class="text-gray-600 text-sm leading-relaxed mb-6">Navigating market shifts to build a sustainable competitive advantage.</p>
+                                    <span class="text-xs font-bold uppercase tracking-wider border-b border-black pb-1">Learn More</span>
+                                </div>
+                                <div class="border border-gray-200 p-8 hover:shadow-xl transition cursor-pointer bg-black text-white">
+                                    <i class="fas fa-laptop-code text-3xl mb-6 text-white"></i>
+                                    <h3 class="text-xl font-bold mb-3 text-white">Digital Transformation</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Modernizing IT infrastructure and adopting agile methodologies.</p>
+                                    <span class="text-xs font-bold uppercase tracking-wider border-b border-white pb-1">Learn More</span>
+                                </div>
+                                <div class="border border-gray-200 p-8 hover:shadow-xl transition cursor-pointer">
+                                    <i class="fas fa-leaf text-3xl mb-6 text-gray-900"></i>
+                                    <h3 class="text-xl font-bold mb-3 text-gray-900">Sustainability</h3>
+                                    <p class="text-gray-600 text-sm leading-relaxed mb-6">Integrating ESG principles into core business operations.</p>
+                                    <span class="text-xs font-bold uppercase tracking-wider border-b border-black pb-1">Learn More</span>
+                                </div>
+                            </div>
+                        </section>
+                        <footer class="bg-gray-100 py-12 text-center text-gray-500 text-xs font-bold uppercase tracking-widest">
+                            <p>© 2026 APEX Consulting Group.</p>
+                        </footer>
+                    </div>
+                `
+            },
+            'ecommerce': {
+                url: 'trend-apparel-store.com',
+                html: `
+                    <div class="min-h-full font-sans bg-white text-gray-900 pb-0 w-full">
+                        <header class="p-4 md:px-8 py-5 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur z-50">
+                            <div class="text-2xl font-black tracking-tighter">TREND.</div>
+                            <nav class="hidden md:flex gap-8 text-sm font-bold text-gray-500 uppercase tracking-wider"><a href="#" class="text-black">New</a><a href="#" class="hover:text-black transition">Men</a><a href="#" class="hover:text-black transition">Women</a><a href="#" class="hover:text-black transition">Sale</a></nav>
+                            <div class="flex gap-6 items-center">
+                                <i class="fas fa-search text-gray-500 cursor-pointer hover:text-black"></i>
+                                <i class="fas fa-user text-gray-500 cursor-pointer hover:text-black"></i>
+                                <div class="font-bold text-sm flex items-center gap-2 cursor-pointer bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition"><i class="fas fa-shopping-bag"></i> 3</div>
+                            </div>
+                        </header>
+                        <section class="h-[60vh] md:h-[75vh] relative flex items-center justify-center text-center">
+                            <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=1200&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/40"></div>
+                            <div class="relative z-10 text-white px-4">
+                                <p class="text-xs md:text-sm font-bold tracking-widest uppercase mb-4 text-gray-200 drop-shadow-md">Summer Collection 26'</p>
+                                <h1 class="text-5xl md:text-8xl font-black mb-8 drop-shadow-lg tracking-tighter">DEFINE YOUR <br>STYLE</h1>
+                                <button class="bg-white text-black px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white transition shadow-xl">Shop Collection</button>
+                            </div>
+                        </section>
+                        <section class="py-16 md:py-24 px-4 md:px-8 max-w-7xl mx-auto border-b border-gray-100">
+                            <div class="flex justify-between items-end mb-10">
+                                <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Trending Now</h2>
+                                <a href="#" class="text-sm font-bold border-b border-black pb-1 hover:text-gray-500 hidden sm:block">View All</a>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                                <div class="group cursor-pointer">
+                                    <div class="bg-gray-100 aspect-[3/4] mb-4 overflow-hidden relative">
+                                        <span class="absolute top-3 left-3 bg-black text-white text-[10px] font-bold px-2 py-1 z-10 uppercase tracking-widest">New</span>
+                                        <div class="absolute bottom-0 w-full p-4 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 z-10 flex justify-center"><button class="bg-white text-black text-xs font-bold uppercase w-full py-3 hover:bg-gray-200">Quick Add</button></div>
+                                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                                    </div>
+                                    <h4 class="font-bold text-sm md:text-base">Classic White Tee</h4>
+                                    <p class="text-gray-500 text-sm mt-1">$29.00</p>
+                                </div>
+                                <div class="group cursor-pointer">
+                                    <div class="bg-gray-100 aspect-[3/4] mb-4 overflow-hidden relative">
+                                        <div class="absolute bottom-0 w-full p-4 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 z-10 flex justify-center"><button class="bg-white text-black text-xs font-bold uppercase w-full py-3 hover:bg-gray-200">Quick Add</button></div>
+                                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                                    </div>
+                                    <h4 class="font-bold text-sm md:text-base">Vintage Denim Jacket</h4>
+                                    <p class="text-gray-500 text-sm mt-1">$89.00</p>
+                                </div>
+                                <div class="group cursor-pointer">
+                                    <div class="bg-gray-100 aspect-[3/4] mb-4 overflow-hidden relative">
+                                        <div class="absolute bottom-0 w-full p-4 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 z-10 flex justify-center"><button class="bg-white text-black text-xs font-bold uppercase w-full py-3 hover:bg-gray-200">Quick Add</button></div>
+                                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                                    </div>
+                                    <h4 class="font-bold text-sm md:text-base">Urban Bomber</h4>
+                                    <p class="text-gray-500 text-sm mt-1">$110.00</p>
+                                </div>
+                                <div class="group cursor-pointer">
+                                    <div class="bg-gray-100 aspect-[3/4] mb-4 overflow-hidden relative">
+                                        <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-bold px-2 py-1 z-10 uppercase tracking-widest">Sale</span>
+                                        <div class="absolute bottom-0 w-full p-4 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 z-10 flex justify-center"><button class="bg-white text-black text-xs font-bold uppercase w-full py-3 hover:bg-gray-200">Quick Add</button></div>
+                                        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                                    </div>
+                                    <h4 class="font-bold text-sm md:text-base">Graphic Hoodie</h4>
+                                    <p class="text-red-600 text-sm font-bold mt-1">$45.00 <span class="text-gray-400 line-through text-xs font-normal ml-2">$56.00</span></p>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="py-16 md:py-24 px-4 md:px-8 max-w-7xl mx-auto">
+                            <div class="grid md:grid-cols-2 gap-4 md:gap-8">
+                                <div class="relative h-80 md:h-96 group cursor-pointer overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-1000">
+                                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition"></div>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+                                        <h3 class="text-4xl font-black mb-4 tracking-tighter">WOMEN</h3>
+                                        <span class="border-b-2 border-white pb-1 text-sm font-bold uppercase tracking-widest">Shop Now</span>
+                                    </div>
+                                </div>
+                                <div class="relative h-80 md:h-96 group cursor-pointer overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-1000">
+                                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition"></div>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
+                                        <h3 class="text-4xl font-black mb-4 tracking-tighter">MEN</h3>
+                                        <span class="border-b-2 border-white pb-1 text-sm font-bold uppercase tracking-widest">Shop Now</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <footer class="bg-black text-white py-16 px-8 text-center text-sm font-medium border-t-8 border-gray-900">
+                            <div class="text-2xl font-black tracking-tighter mb-6 text-gray-500">TREND.</div>
+                            <p class="text-gray-600 mb-8 max-w-md mx-auto">Subscribe to our newsletter for 10% off your first order.</p>
+                            <div class="flex max-w-sm mx-auto mb-12"><input type="email" placeholder="Email Address" class="flex-1 bg-gray-900 border-none outline-none px-4 py-3 text-white"><button class="bg-white text-black px-6 font-bold">JOIN</button></div>
+                            <p class="text-gray-700 text-xs uppercase tracking-widest">© 2026 Trend Apparel Store</p>
+                        </footer>
+                    </div>
+                `
+            },
+            'portfolio': {
+                url: 'alex-designs.co',
+                html: `
+                    <div class="min-h-full font-sans bg-black text-white w-full selection:bg-white selection:text-black">
+                        <header class="p-6 md:p-10 flex justify-between items-center sticky top-0 w-full z-50 mix-blend-difference">
+                            <div class="text-xl font-bold tracking-widest uppercase">Alex.</div>
+                            <div class="font-bold text-sm text-white hover:opacity-50 cursor-pointer uppercase tracking-widest">Menu</div>
+                        </header>
+                        <section class="pt-20 md:pt-32 px-6 md:px-10 max-w-6xl mx-auto mb-32">
+                            <h1 class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85] mb-12 text-white">Digital <br><span class="text-gray-600 hover:text-white transition duration-500">Designer</span> & <br>Art Director.</h1>
+                            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl font-light leading-relaxed">I craft immersive, award-winning digital experiences for forward-thinking brands worldwide.</p>
+                            <div class="mt-16 flex items-center gap-4 text-xs font-bold uppercase tracking-widest">
+                                <span class="w-12 h-[1px] bg-white"></span> SCROLL TO EXPLORE
+                            </div>
+                        </section>
+                        <section class="px-6 md:px-10 max-w-7xl mx-auto mb-32">
+                            <h2 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-10 border-b border-gray-800 pb-4">Selected Works 24-26</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+                                <div class="group cursor-pointer mt-0 md:mt-24">
+                                    <div class="bg-gray-900 overflow-hidden aspect-[4/5] mb-6 relative"><img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale group-hover:grayscale-0"></div>
+                                    <h3 class="text-3xl font-bold mb-2">Neon Abstract</h3>
+                                    <p class="text-gray-500 uppercase tracking-widest text-xs font-bold">Brand Identity & Web</p>
+                                </div>
+                                <div class="group cursor-pointer">
+                                    <div class="bg-gray-900 overflow-hidden aspect-square mb-6 relative"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale group-hover:grayscale-0"></div>
+                                    <h3 class="text-3xl font-bold mb-2">Aura Skincare</h3>
+                                    <p class="text-gray-500 uppercase tracking-widest text-xs font-bold">E-Commerce UI/UX</p>
+                                </div>
+                                <div class="group cursor-pointer mt-0 md:mt-24">
+                                    <div class="bg-gray-900 overflow-hidden aspect-[4/3] mb-6 relative"><img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale group-hover:grayscale-0"></div>
+                                    <h3 class="text-3xl font-bold mb-2">Koto Architecture</h3>
+                                    <p class="text-gray-500 uppercase tracking-widest text-xs font-bold">Corporate Portfolio</p>
+                                </div>
+                                <div class="group cursor-pointer">
+                                    <div class="bg-gray-900 overflow-hidden aspect-[3/4] mb-6 relative"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale group-hover:grayscale-0"></div>
+                                    <h3 class="text-3xl font-bold mb-2">Vibe Music App</h3>
+                                    <p class="text-gray-500 uppercase tracking-widest text-xs font-bold">Mobile Application</p>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="bg-gray-900 py-32 px-6 md:px-10">
+                            <div class="max-w-4xl mx-auto text-center">
+                                <h2 class="text-4xl md:text-6xl font-black mb-10 tracking-tighter">Let's create something <br>extraordinary.</h2>
+                                <a href="mailto:hello@alex.co" class="text-xl md:text-3xl font-light border-b border-white pb-2 hover:text-gray-400 hover:border-gray-400 transition">hello@alex-designs.co</a>
+                            </div>
+                        </section>
+                        <footer class="p-6 md:p-10 flex flex-col md:flex-row justify-between items-center text-xs font-bold uppercase tracking-widest text-gray-600">
+                            <div>© 2026 Alex.</div>
+                            <div class="flex gap-6 mt-4 md:mt-0"><a href="#" class="hover:text-white">Twitter</a><a href="#" class="hover:text-white">Dribbble</a><a href="#" class="hover:text-white">LinkedIn</a></div>
+                        </footer>
+                    </div>
+                `
+            },
+            'blog': {
+                url: 'the-daily-read.com',
+                html: `
+                    <div class="min-h-full font-serif bg-white text-gray-900 w-full selection:bg-gray-900 selection:text-white">
+                        <header class="py-8 px-4 border-b-4 border-black text-center sticky top-0 bg-white/95 backdrop-blur z-50">
+                            <p class="text-xs font-sans font-bold uppercase tracking-widest text-gray-500 mb-2">New York • Tuesday, Oct 14</p>
+                            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter" style="font-family: 'Times New Roman', Times, serif;">The Chronicle</h1>
+                        </header>
+                        <nav class="py-4 border-b border-gray-200 flex justify-center gap-6 md:gap-10 text-xs font-sans font-bold uppercase tracking-widest overflow-x-auto px-4">
+                            <a href="#" class="hover:text-gray-500 text-black">World</a><a href="#" class="hover:text-gray-500 text-black">Tech</a><a href="#" class="hover:text-gray-500 text-black">Culture</a><a href="#" class="hover:text-gray-500 text-black">Design</a><a href="#" class="hover:text-gray-500 text-black hidden sm:block">Opinion</a>
+                        </nav>
+                        <section class="max-w-7xl mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 border-b border-gray-200 pb-16">
+                            <div class="lg:col-span-8">
+                                <div class="mb-6 bg-gray-200 aspect-[16/9] overflow-hidden group cursor-pointer"><img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale group-hover:scale-105 transition duration-700"></div>
+                                <div class="flex items-center gap-2 text-black font-sans text-xs font-bold uppercase tracking-widest mb-4"><span>Technology</span> <span class="text-gray-400">•</span> <span class="text-gray-500">5 Min Read</span></div>
+                                <h2 class="text-4xl md:text-6xl font-bold leading-tight mb-6 hover:text-gray-600 cursor-pointer">The Evolution of Digital Workspaces in 2026</h2>
+                                <p class="text-xl text-gray-600 mb-6 leading-relaxed font-light">Organizations are fundamentally rethinking how they design digital environments to foster collaboration and creativity in an increasingly remote world.</p>
+                                <p class="text-xs font-sans font-bold uppercase tracking-widest text-black">By Jonathan Doe</p>
+                            </div>
+                            <div class="lg:col-span-4 flex flex-col gap-8 lg:border-l border-gray-200 lg:pl-12">
+                                <div>
+                                    <div class="text-black font-sans text-[10px] font-bold uppercase tracking-widest mb-3 border-b border-black pb-1 inline-block">Culture</div>
+                                    <h3 class="text-2xl font-bold mb-3 hover:text-gray-600 cursor-pointer leading-snug">Why analog hobbies are seeing a massive resurgence</h3>
+                                    <p class="text-gray-600 text-sm font-sans">People are trading screens for pottery wheels and film cameras.</p>
+                                </div>
+                                <hr class="border-gray-200">
+                                <div>
+                                    <div class="text-black font-sans text-[10px] font-bold uppercase tracking-widest mb-3 border-b border-black pb-1 inline-block">Design</div>
+                                    <h3 class="text-2xl font-bold mb-3 hover:text-gray-600 cursor-pointer leading-snug">Minimalism vs. Brutalism: The fight for the web</h3>
+                                    <p class="text-gray-600 text-sm font-sans">A look at the opposing design philosophies shaping our digital landscape.</p>
+                                </div>
+                                <div class="bg-gray-100 p-6 mt-auto">
+                                    <h4 class="font-sans font-bold uppercase tracking-widest text-sm mb-4">The Daily Newsletter</h4>
+                                    <input type="email" placeholder="Email address" class="w-full bg-white border border-gray-300 p-3 mb-3 font-sans text-sm outline-none focus:border-black">
+                                    <button class="w-full bg-black text-white font-sans font-bold uppercase tracking-widest text-xs py-3 hover:bg-gray-800 transition">Subscribe</button>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="max-w-7xl mx-auto p-4 md:p-8 py-16">
+                            <h3 class="text-2xl font-bold mb-10 font-sans uppercase tracking-tighter">Latest Stories</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div>
+                                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=400&auto=format&fit=crop" class="w-full aspect-[4/3] object-cover mb-4 grayscale">
+                                    <h4 class="font-bold text-xl mb-2 hover:text-gray-600 cursor-pointer leading-snug">The End of the 9-to-5</h4>
+                                    <p class="text-gray-600 text-sm font-sans">How async work is changing lives.</p>
+                                </div>
+                                <div>
+                                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=400&auto=format&fit=crop" class="w-full aspect-[4/3] object-cover mb-4 grayscale">
+                                    <h4 class="font-bold text-xl mb-2 hover:text-gray-600 cursor-pointer leading-snug">Rethinking Urban Economics</h4>
+                                    <p class="text-gray-600 text-sm font-sans">The rise of the 15-minute city.</p>
+                                </div>
+                                <div>
+                                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=400&auto=format&fit=crop" class="w-full aspect-[4/3] object-cover mb-4 grayscale">
+                                    <h4 class="font-bold text-xl mb-2 hover:text-gray-600 cursor-pointer leading-snug">Cybersecurity in 2026</h4>
+                                    <p class="text-gray-600 text-sm font-sans">What you need to know now.</p>
+                                </div>
+                            </div>
+                        </section>
+                        <footer class="bg-black text-white text-center py-12 font-sans text-xs font-bold uppercase tracking-widest">
+                            <p>© 2026 The Chronicle. Journalism without compromise.</p>
+                        </footer>
+                    </div>
+                `
+            },
+            'realestate': {
+                url: 'prime-estates.com',
+                html: `
+                    <div class="min-h-full font-sans bg-gray-50 text-gray-900 w-full">
+                        <header class="p-4 md:px-8 py-5 flex justify-between items-center bg-white shadow-sm sticky top-0 z-50">
+                            <div class="text-2xl font-black text-black flex items-center gap-2 tracking-tighter">PRIME<span class="text-gray-400 font-light">ESTATES</span></div>
+                            <nav class="hidden md:flex gap-8 text-sm font-bold text-gray-500 uppercase tracking-wider"><a href="#" class="text-black">Buy</a><a href="#" class="hover:text-black transition">Rent</a><a href="#" class="hover:text-black transition">Sell</a></nav>
+                            <button class="bg-black text-white px-6 py-3 rounded font-bold text-sm hover:bg-gray-800 transition shadow-lg">List Property</button>
+                        </header>
+                        <section class="h-[60vh] md:h-[75vh] relative flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/50"></div>
+                            <div class="relative z-10 w-full max-w-4xl px-4 text-center">
+                                <h1 class="text-5xl md:text-7xl font-bold text-white mb-8 drop-shadow-lg tracking-tight">Find Your Dream Home</h1>
+                                <div class="bg-white p-2 rounded-xl flex flex-col md:flex-row gap-2 shadow-2xl">
+                                    <input type="text" placeholder="Enter city, neighborhood, or zip" class="flex-1 px-6 py-4 outline-none text-gray-700 bg-gray-100 rounded-lg md:bg-white md:rounded-none text-lg">
+                                    <button class="bg-black text-white px-10 py-4 rounded-lg font-bold hover:bg-gray-800 text-lg transition">Search</button>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+                            <div class="flex justify-between items-end mb-10">
+                                <div>
+                                    <h2 class="text-3xl md:text-4xl font-bold text-black mb-2">Exclusive Listings</h2>
+                                    <p class="text-gray-500">The most sought-after properties right now.</p>
+                                </div>
+                                <a href="#" class="font-bold border-b-2 border-black pb-1 hidden sm:block">View All</a>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-shadow cursor-pointer group">
+                                    <div class="h-64 bg-gray-200 relative overflow-hidden">
+                                        <div class="absolute top-4 left-4 bg-black text-white text-xs font-bold px-3 py-1.5 rounded z-10 tracking-widest">FOR SALE</div>
+                                        <div class="absolute bottom-4 right-4 bg-white p-2 rounded-full z-10 shadow opacity-0 group-hover:opacity-100 transition"><i class="far fa-heart text-gray-400"></i></div>
+                                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="text-3xl font-bold text-black mb-2">$1,250,000</h3>
+                                        <p class="text-gray-500 mb-6"><i class="fas fa-map-marker-alt mr-2 text-gray-300"></i>123 Beverly Hills, CA</p>
+                                        <div class="flex justify-between border-t border-gray-100 pt-6 text-gray-700 text-sm font-bold">
+                                            <span class="flex items-center gap-2"><i class="fas fa-bed text-gray-400"></i> 4 Beds</span>
+                                            <span class="flex items-center gap-2"><i class="fas fa-bath text-gray-400"></i> 3 Baths</span>
+                                            <span class="flex items-center gap-2"><i class="fas fa-ruler-combined text-gray-400"></i> 2,500 sqft</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-shadow cursor-pointer group">
+                                    <div class="h-64 bg-gray-200 relative overflow-hidden">
+                                        <div class="absolute top-4 left-4 bg-gray-500 text-white text-xs font-bold px-3 py-1.5 rounded z-10 tracking-widest">FOR RENT</div>
+                                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="text-3xl font-bold text-black mb-2">$4,500 <span class="text-sm text-gray-500 font-normal">/mo</span></h3>
+                                        <p class="text-gray-500 mb-6"><i class="fas fa-map-marker-alt mr-2 text-gray-300"></i>789 Ocean Drive, FL</p>
+                                        <div class="flex justify-between border-t border-gray-100 pt-6 text-gray-700 text-sm font-bold">
+                                            <span class="flex items-center gap-2"><i class="fas fa-bed text-gray-400"></i> 2 Beds</span>
+                                            <span class="flex items-center gap-2"><i class="fas fa-bath text-gray-400"></i> 2 Baths</span>
+                                            <span class="flex items-center gap-2"><i class="fas fa-ruler-combined text-gray-400"></i> 1,200 sqft</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-shadow cursor-pointer group">
+                                    <div class="h-64 bg-gray-200 relative overflow-hidden">
+                                        <div class="absolute top-4 left-4 bg-black text-white text-xs font-bold px-3 py-1.5 rounded z-10 tracking-widest">FOR SALE</div>
+                                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="text-3xl font-bold text-black mb-2">$3,850,000</h3>
+                                        <p class="text-gray-500 mb-6"><i class="fas fa-map-marker-alt mr-2 text-gray-300"></i>456 Alpine Way, CO</p>
+                                        <div class="flex justify-between border-t border-gray-100 pt-6 text-gray-700 text-sm font-bold">
+                                            <span class="flex items-center gap-2"><i class="fas fa-bed text-gray-400"></i> 6 Beds</span>
+                                            <span class="flex items-center gap-2"><i class="fas fa-bath text-gray-400"></i> 5 Baths</span>
+                                            <span class="flex items-center gap-2"><i class="fas fa-ruler-combined text-gray-400"></i> 6,500 sqft</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="py-20 bg-black text-white text-center px-4">
+                            <h2 class="text-3xl font-bold mb-4">Why choose Prime Estates?</h2>
+                            <p class="text-gray-400 mb-12 max-w-2xl mx-auto">We provide a seamless experience from search to signature.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                                <div><i class="fas fa-search-location text-4xl text-gray-500 mb-4"></i><h4 class="font-bold text-xl mb-2">Curated Properties</h4><p class="text-gray-400 text-sm">We only list homes that pass our strict quality standards.</p></div>
+                                <div><i class="fas fa-handshake text-4xl text-gray-500 mb-4"></i><h4 class="font-bold text-xl mb-2">Expert Agents</h4><p class="text-gray-400 text-sm">Local experts negotiating the best deal for you.</p></div>
+                                <div><i class="fas fa-file-signature text-4xl text-gray-500 mb-4"></i><h4 class="font-bold text-xl mb-2">Digital Closing</h4><p class="text-gray-400 text-sm">Sign papers securely online from anywhere.</p></div>
+                            </div>
+                        </section>
+                        <footer class="bg-gray-100 py-10 text-center text-gray-500 text-sm font-bold uppercase tracking-widest border-t border-gray-200">
+                            <p>© 2026 Prime Estates LLC.</p>
+                        </footer>
+                    </div>
+                `
+            }
+        };
+
+        function openDemoModal(theme) {
+            const demo = demoTemplates[theme];
+            if(!demo) return;
+            
+            demoUrl.innerText = `https://${demo.url}`;
+            demoContainer.innerHTML = demo.html;
+            
+            demoModal.classList.remove('hidden');
+            void demoModal.offsetWidth; // Force reflow
+            demoModal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDemoModal() {
+            demoModal.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                demoModal.classList.add('hidden');
+                demoContainer.innerHTML = ''; // clear out memory/dom
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // --- ENHANCEMENTS LOGIC ---
+
+        // 1. Dynamic Header & Back-to-Top Button on scroll
+        const header = document.getElementById('main-header');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('h-16', 'shadow-md');
+                header.classList.remove('h-20', 'shadow-sm');
+                backToTopBtn.classList.add('visible');
+            } else {
+                header.classList.add('h-20', 'shadow-sm');
+                header.classList.remove('h-16', 'shadow-md');
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // 2. FAQ Accordion Logic
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('.faq-icon');
+                
+                // Toggle clicked item
+                answer.classList.toggle('open');
+                icon.classList.toggle('open');
+                
+                // Close others
+                document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+                    if (otherAnswer !== answer && otherAnswer.classList.contains('open')) {
+                        otherAnswer.classList.remove('open');
+                        otherAnswer.previousElementSibling.querySelector('.faq-icon').classList.remove('open');
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
